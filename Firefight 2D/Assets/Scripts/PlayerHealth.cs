@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class PlayerHealth : MonoBehaviour
 {
@@ -26,6 +27,7 @@ public class PlayerHealth : MonoBehaviour
         {
             health = 0f;
             Debug.Log("Player Respawn");
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
     }
 

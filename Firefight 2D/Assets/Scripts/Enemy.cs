@@ -63,6 +63,7 @@ public class Enemy : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
+            canAttack = attackSpeed;
             target = other.transform;
 
         }

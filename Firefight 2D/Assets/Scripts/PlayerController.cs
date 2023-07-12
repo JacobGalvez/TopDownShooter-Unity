@@ -29,10 +29,15 @@ public class PlayerController : MonoBehaviour
         float moveX = Input.GetAxisRaw("Horizontal");
         float moveY = Input.GetAxisRaw("Vertical");
 
-        if(Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0))
         {
-            weapon.Fire();
+            weapon.StartFiring();
         }
+        else if (Input.GetMouseButtonUp(0))
+        {
+            weapon.StopFiring();
+        }
+        
 
         moveDirection = new Vector2(moveX, moveY).normalized; // TODO come back
         mousePosition = sceneCamera.ScreenToWorldPoint(Input.mousePosition);
