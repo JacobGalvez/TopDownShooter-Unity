@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Weapon : MonoBehaviour
 {
@@ -10,6 +11,19 @@ public class Weapon : MonoBehaviour
     public float fireRate = 0.1f; // Time between each shot
     private bool isFiring = false; // Flag to track if the weapon is currently firing
     private float nextFireTime = 0f; // Time of the next allowed shot
+    private float magazineCapacity;
+    private float maxMagazine = 30f;
+    private float reloadTime = 1f; // Time it takes to reload the magazine
+    private bool isReloading = false; // Flag to track if the weapon is currently being reloaded
+
+    [SerializeField] private Slider magazineSlider;
+
+    private void Start()
+    {
+        magazineCapacity = maxMagazine;
+        magazineSlider.maxValue = maxMagazine;
+        magazineSlider.minValue = -1f;
+    }
 
     public void StartFiring()
     {
@@ -21,13 +35,39 @@ public class Weapon : MonoBehaviour
         isFiring = false;
     }
 
-    void Update()
+    private void Update()
     {
-        if (isFiring && Time.time >= nextFireTime)
+        if (isReloading)
+        {
+            // Do not allow firing while reloading
+            return;
+        }
+
+        if (isFiring && Time.time >= nextFireTime && magazineCapacity > 0)
         {
             Fire();
             nextFireTime = Time.time + fireRate;
+            magazineCapacity -= 1f;
+
+            if (magazineCapacity <= 0)
+            {
+                // Start reloading if the magazine is empty
+                StartCoroutine(Reload());
+            }
         }
+
+        if (Input.GetKeyDown(KeyCode.R) && !isReloading)
+        {
+            StartCoroutine(Reload());
+        }
+    }
+
+    private IEnumerator Reload()
+    {
+        isReloading = true;
+        yield return new WaitForSeconds(reloadTime);
+        magazineCapacity = maxMagazine;
+        isReloading = false;
     }
 
     public void Fire()
@@ -41,5 +81,10 @@ public class Weapon : MonoBehaviour
         {
             bulletScript.bulletDamage = bulletDmg;
         }
+    }
+
+    private void OnGUI()
+    {
+        magazineSlider.value = magazineCapacity;
     }
 }
