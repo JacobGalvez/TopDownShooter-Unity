@@ -13,10 +13,12 @@ public class Weapon : MonoBehaviour
     private float nextFireTime = 0f; // Time of the next allowed shot
     private float magazineCapacity;
     private float maxMagazine = 30f;
-    private float reloadTime = 1f; // Time it takes to reload the magazine
+    private float reloadTime = 2f; // Time it takes to reload the magazine
     private bool isReloading = false; // Flag to track if the weapon is currently being reloaded
 
     [SerializeField] private Slider magazineSlider;
+    [SerializeField] private AudioSource gunshotSound;
+    [SerializeField] private AudioSource reloadSound;
 
     private void Start()
     {
@@ -48,6 +50,7 @@ public class Weapon : MonoBehaviour
             Fire();
             nextFireTime = Time.time + fireRate;
             magazineCapacity -= 1f;
+            gunshotSound.Play();
 
             if (magazineCapacity <= 0)
             {
@@ -64,6 +67,7 @@ public class Weapon : MonoBehaviour
 
     private IEnumerator Reload()
     {
+        reloadSound.Play();
         isReloading = true;
         yield return new WaitForSeconds(reloadTime);
         magazineCapacity = maxMagazine;

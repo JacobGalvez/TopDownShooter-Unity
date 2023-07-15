@@ -9,6 +9,8 @@ public class PlayerHealth : MonoBehaviour
     private float health = 0f;
     [SerializeField] private float maxHealth = 5f;
     [SerializeField] private Slider healthSlider;
+    [SerializeField] private AudioSource oofSound;
+
 
     private void Start() {
         health = maxHealth;
@@ -18,7 +20,7 @@ public class PlayerHealth : MonoBehaviour
     public void UpdateHealth(float mod) 
     {
         health += mod;
-        
+        oofSound.Play();
         if(health > maxHealth) 
         {
             health = maxHealth;
