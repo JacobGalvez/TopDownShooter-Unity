@@ -24,7 +24,7 @@ public class Weapon : MonoBehaviour
     {
         magazineCapacity = maxMagazine;
         magazineSlider.maxValue = maxMagazine;
-        magazineSlider.minValue = -1f;
+        magazineSlider.minValue = 0f;
     }
 
     public void StartFiring()
