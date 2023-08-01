@@ -37,31 +37,34 @@ public class Weapon : MonoBehaviour
         isFiring = false;
     }
 
-    private void Update()
+   private void Update()
     {
-        if (isReloading)
+        if(!PauseMenu.isPaused)
         {
-            // Do not allow firing while reloading
-            return;
-        }
-
-        if (isFiring && Time.time >= nextFireTime && magazineCapacity > 0)
-        {
-            Fire();
-            nextFireTime = Time.time + fireRate;
-            magazineCapacity -= 1f;
-            gunshotSound.Play();
-
-            if (magazineCapacity <= 0)
+            if (isReloading)
             {
-                // Start reloading if the magazine is empty
+                // Do not allow firing while reloading
+                return;
+            }
+
+            if (isFiring && Time.time >= nextFireTime && magazineCapacity > 0)
+            {
+                Fire();
+                nextFireTime = Time.time + fireRate;
+                magazineCapacity -= 1f;
+                gunshotSound.Play();
+
+                if (magazineCapacity <= 0)
+                {
+                    // Start reloading if the magazine is empty
+                    StartCoroutine(Reload());
+                }
+            }
+
+            if (Input.GetKeyDown(KeyCode.R) && !isReloading)
+            {
                 StartCoroutine(Reload());
             }
-        }
-
-        if (Input.GetKeyDown(KeyCode.R) && !isReloading)
-        {
-            StartCoroutine(Reload());
         }
     }
 

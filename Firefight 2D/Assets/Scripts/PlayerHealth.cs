@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class PlayerHealth : MonoBehaviour
 {
-    private float health = 0f;
+    public float health = 0f;
     [SerializeField] private float maxHealth = 5f;
     [SerializeField] private Slider healthSlider;
     [SerializeField] private AudioSource oofSound;
@@ -29,7 +29,6 @@ public class PlayerHealth : MonoBehaviour
         {
             health = 0f;
             Debug.Log("Player Respawn");
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
     }
 

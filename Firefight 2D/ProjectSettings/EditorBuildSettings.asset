@@ -9,7 +9,10 @@ EditorBuildSettings:
     path: Assets/Scenes/StartingMap.unity
     guid: 47b6b58a113f16942a38603dbf83d423
   - enabled: 1
-    path: Assets/Scenes/Map1.unity
+    path: Assets/Scenes/Map1 Lois.unity
+    guid: 1a08cee5ca3e80c429e023bdfc06f9a7
+  - enabled: 1
+    path: Assets/Scenes/Map 2 Jake.unity
     guid: 4c5da9af73d86a949983ac05880b035a
   - enabled: 1
     path: Assets/Scenes/TestEnivironment.unity
